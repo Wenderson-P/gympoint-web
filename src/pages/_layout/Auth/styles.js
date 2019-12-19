@@ -59,6 +59,12 @@ export const Content = styled.div`
       color: #999999;
     }
 
+    span {
+      color: #ee4d64;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
     button {
       height: 45px;
       margin-bottom: 50px;
