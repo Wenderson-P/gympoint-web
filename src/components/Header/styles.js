@@ -59,13 +59,15 @@ export const Content = styled.div`
       color: #666666;
     }
 
-    a {
+    button {
       width: 100%;
       font-size: 14px;
       line-height: 16px;
       text-align: center;
 
       color: #de3b3b;
+      border: none;
+      background: none;
     }
   }
 `;
