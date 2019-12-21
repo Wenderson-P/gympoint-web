@@ -12,7 +12,13 @@ const headers = [
   { name: 'TÉRMINO', textAlign: 'center' },
   { name: 'ATIVA', textAlign: 'center' },
 ];
-const dataDisplay = ['studentName', 'plan', 'startDate', 'endDate', 'active'];
+const dataDisplay = [
+  'studentName',
+  'planName',
+  'startDate',
+  'endDate',
+  'active',
+];
 
 const options = [
   { name: 'editar', color: '#4D85EE' },
@@ -25,17 +31,21 @@ export default function Alunos() {
   useEffect(() => {
     async function loadEnrollments() {
       const response = await api.get('enrollments');
-      const data = response.data.map(data => {
-        const active = data.active ? '0' : '1';
+      const data = response.data.map(item => {
         return {
-          studentName: data.student.name,
-          startDate: format(parseISO(data.start_date), "d 'de' MMMM", {
+          studentName: item.student.name,
+          planName: item.plan.title,
+          startDate: format(
+            parseISO(item.start_date),
+            "d 'de' MMMM 'de'  yyyy",
+            {
+              locale: pt,
+            }
+          ),
+          endDate: format(parseISO(item.end_date), "d 'de' MMMM 'de'  yyyy", {
             locale: pt,
           }),
-          endDate: format(parseISO(data.end_date), "d 'de' MMMM", {
-            locale: pt,
-          }),
-          active: data.active ? 'Sim' : 'Não',
+          active: item.active ? 'Sim' : 'Não',
         };
       });
       setEnrollments(data);
