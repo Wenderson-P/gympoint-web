@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container } from './styles';
 import Table from '~/components/Table';
 
 import api from '~/services/api';
+import { Container } from './styles';
 
-const headers = ['NOME', 'EMAIL', 'IDADE'];
+const headers = [
+  { name: 'NOME' },
+  { name: 'EMAIL' },
+  { name: 'IDADE', textAlign: 'center' },
+];
 const dataDisplay = ['name', 'email', 'age'];
 
 const options = [
-  { name: 'editar', color: 'blue' },
-  { name: 'apagar', color: 'red' },
+  { name: 'editar', color: '#4D85EE' },
+  { name: 'apagar', color: '#DE3B3B' },
 ];
 
 export default function Alunos() {
@@ -26,6 +30,10 @@ export default function Alunos() {
 
   return (
     <Container>
+      <div>
+        <h2>Gerenciando alunos</h2>
+        <button type="button">CADASTRAR</button>
+      </div>
       <Table
         headers={headers}
         data={students}
