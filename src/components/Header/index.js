@@ -26,12 +26,12 @@ export default function Header() {
           <h1>GYMPOINT</h1>
           <hr />
           <Pages>
-            <Link to="/alunos" active={active ? 1 : 0}>
+            <Link to="/students" active={active ? 1 : 0}>
               ALUNOS
             </Link>
-            <Link to="/planos">PLANOS</Link>
-            <Link to="/matriculas">MATRÍCULAS</Link>
-            <Link to="/pedidos">PEDIDOS DE AUXÍLIO</Link>
+            <Link to="/plans">PLANOS</Link>
+            <Link to="/enrollments">MATRÍCULAS</Link>
+            <Link to="/helporders">PEDIDOS DE AUXÍLIO</Link>
           </Pages>
         </nav>
 
