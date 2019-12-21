@@ -31,7 +31,7 @@ export default function Header() {
             </Link>
             <Link to="/plans">PLANOS</Link>
             <Link to="/enrollments">MATRÍCULAS</Link>
-            <Link to="/helporders">PEDIDOS DE AUXÍLIO</Link>
+            <Link to="/help-orders">PEDIDOS DE AUXÍLIO</Link>
           </Pages>
         </nav>
 
