@@ -40,3 +40,10 @@ export default function Table({ headers, data, dataDisplay, options }) {
     </TableContent>
   );
 }
+
+Table.propTypes = {
+  headers: PropTypes.arrayOf(Object).isRequired,
+  data: PropTypes.arrayOf(Object).isRequired,
+  dataDisplay: PropTypes.arrayOf(String).isRequired,
+  options: PropTypes.arrayOf(Object).isRequired,
+};
