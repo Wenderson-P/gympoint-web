@@ -23,7 +23,7 @@ export default function Alunos() {
       setHelpOrders(data);
     }
     loadHelpOrders();
-  }, [helpOrders]);
+  }, []);
 
   return (
     <>

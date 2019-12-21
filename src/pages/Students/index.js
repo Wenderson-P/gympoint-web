@@ -25,7 +25,7 @@ export default function Alunos() {
       setStudents(response.data);
     }
     loadStudents();
-  }, [students]);
+  }, []);
 
   return (
     <>

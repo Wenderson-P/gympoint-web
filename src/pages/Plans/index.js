@@ -25,7 +25,7 @@ export default function Alunos() {
       setPlans(response.data);
     }
     loadPlans();
-  }, [plans]);
+  }, []);
 
   return (
     <>
