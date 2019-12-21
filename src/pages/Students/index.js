@@ -29,7 +29,7 @@ export default function Alunos() {
   }, [students]);
 
   return (
-    <Container>
+    <>
       <div>
         <h2>Gerenciando alunos</h2>
         <button type="button">CADASTRAR</button>
@@ -40,6 +40,6 @@ export default function Alunos() {
         dataDisplay={dataDisplay}
         options={options}
       />
-    </Container>
+    </>
   );
 }

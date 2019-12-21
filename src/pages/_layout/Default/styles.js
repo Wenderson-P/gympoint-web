@@ -9,6 +9,18 @@ export const Content = styled.div`
   padding: 30px;
   width: 90%;
   margin: 0 auto;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h2 {
+      font-weight: bold;
+      font-size: 24px;
+      color: #444444;
+    }
+  }
+
   button {
     background: #ee4d64;
     color: #ffffff;
