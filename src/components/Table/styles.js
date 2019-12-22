@@ -35,11 +35,16 @@ export const Data = styled.td`
   color: #666666;
 `;
 
-export const Button = styled.button`
-  background: none !important ;
-  border: none !important ;
-  margin-left: 20px !important ;
-  color: ${props => props.color || '#4D85EE'} !important ;
-  padding: 0px !important;
-  font-weight: normal !important;
+export const TableOption = styled.span`
+  a {
+    background: none !important ;
+    border: none !important ;
+    margin-left: 20px !important ;
+    color: ${props => props.color || '#4D85EE'} !important ;
+    padding: 0px !important;
+    font-weight: normal !important;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 `;
