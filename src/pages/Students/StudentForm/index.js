@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import { Row, MultipleItemRow, Header } from './styles';
+import { FaChevronLeft, FaCheck } from 'react-icons/fa';
+import { Row, MultipleItemRow } from './styles';
 
 export default function StudentForm({ location }) {
   const [student, setStudent] = useState(['']);
@@ -13,15 +14,22 @@ export default function StudentForm({ location }) {
 
     loadStudent();
   }, [location.state]);
+
   return (
     <>
-      <Header>
+      <div>
         <h2>Edição de aluno</h2>
         <div>
-          <button type="button">Voltar</button>
-          <button type="button">Salvar</button>
+          <button type="button">
+            <FaChevronLeft size={14} />
+            Voltar
+          </button>
+          <button type="button">
+            <FaCheck size={14} />
+            Salvar
+          </button>
         </div>
-      </Header>
+      </div>
       <Form initialData={student}>
         <Row>
           <label htmlFor="name">
