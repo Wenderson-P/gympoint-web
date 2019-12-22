@@ -15,18 +15,16 @@ const options = [
   {
     name: 'editar',
     color: '#4D85EE',
-    path: '/students/edit',
-    parameter: 'id',
+    path: '/students/form',
   },
   {
     name: 'apagar',
     color: '#DE3B3B',
     path: '/students/delete',
-    parameter: 'id',
   },
 ];
 
-export default function Alunos() {
+export default function Alunos({ history }) {
   const [students, setStudents] = useState([]);
 
   useEffect(() => {
