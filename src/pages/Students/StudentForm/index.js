@@ -2,25 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { FaChevronLeft, FaCheck } from 'react-icons/fa';
 import { Row, MultipleItemRow } from './styles';
+import api from '~/services/api';
 
-export default function StudentForm({ location }) {
+export default function StudentForm({ location, history, match }) {
   const [student, setStudent] = useState(['']);
+  const [formType, setFormType] = useState('');
 
   useEffect(() => {
     async function loadStudent() {
-      const { data } = location.state;
-      setStudent(data);
+      try {
+        const { data } = location.state;
+        setFormType('add');
+        setStudent(data);
+      } catch (error) {
+        setFormType('update');
+      }
     }
 
     loadStudent();
-  }, [location.state]);
+  }, [location.state, match.params]);
 
   return (
     <>
       <div>
-        <h2>Edição de aluno</h2>
+        <h2>{formType === 'add' ? 'Edição de aluno' : 'Cadastro de aluno'}</h2>
         <div>
-          <button type="button">
+          <button type="button" onClick={goBack}>
             <FaChevronLeft size={14} />
             Voltar
           </button>
