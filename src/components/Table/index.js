@@ -28,7 +28,7 @@ export default function Table({ headers, data, dataDisplay, options }) {
                   <TableOption color={option.color}>
                     <Link
                       to={{
-                        pathname: `${option.path}/${item[option.parameter]}`,
+                        pathname: `${option.path}`,
                         state: {
                           data: item,
                         },
