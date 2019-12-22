@@ -12,7 +12,7 @@ const headers = [
 const dataDisplay = ['title', 'duration', 'price'];
 
 const options = [
-  { name: 'editar', color: '#4D85EE' },
+  { name: 'editar', color: '#4D85EE', path: '/plans/form' },
   { name: 'apagar', color: '#DE3B3B' },
 ];
 
