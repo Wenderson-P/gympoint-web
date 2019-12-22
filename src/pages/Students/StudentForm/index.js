@@ -22,6 +22,18 @@ export default function StudentForm({ location, history, match }) {
     loadStudent();
   }, [location.state, match.params]);
 
+  function goBack() {
+    history.goBack();
+  }
+
+  function handleFormSubmit() {
+    if (formType === 'add') {
+      // Make redux store request
+    } else {
+      // Make redux update request
+    }
+  }
+
   return (
     <>
       <div>
@@ -37,7 +49,7 @@ export default function StudentForm({ location, history, match }) {
           </button>
         </div>
       </div>
-      <Form initialData={student}>
+      <Form initialData={student} onSubmit={handleFormSubmit}>
         <Row>
           <label htmlFor="name">
             NOME COMPLETO
