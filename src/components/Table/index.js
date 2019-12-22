@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableContent, Header, Data, Button } from './styles';
+import { Link } from 'react-router-dom';
+import { TableContent, Header, Data, TableOption } from './styles';
 
 export default function Table({ headers, data, dataDisplay, options }) {
   return (
@@ -24,13 +25,18 @@ export default function Table({ headers, data, dataDisplay, options }) {
               ))}
               <td>
                 {options.map(option => (
-                  <Button
-                    type="button"
-                    onClick={option.onclick}
-                    color={option.color}
-                  >
-                    {option.name}
-                  </Button>
+                  <TableOption color={option.color}>
+                    <Link
+                      to={{
+                        pathname: `${option.path}/${item[option.parameter]}`,
+                        state: {
+                          data: item,
+                        },
+                      }}
+                    >
+                      {option.name}
+                    </Link>
+                  </TableOption>
                 ))}
               </td>
             </tr>
