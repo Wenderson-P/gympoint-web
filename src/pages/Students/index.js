@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaPlus } from 'react-icons/fa';
 
 import Table from '~/components/Table';
 
@@ -34,12 +35,18 @@ export default function Alunos({ history }) {
     }
     loadStudents();
   }, []);
+  function handleAddClick() {
+    history.push('students/form');
+  }
 
   return (
     <>
       <div>
         <h2>Gerenciando alunos</h2>
-        <button type="button">CADASTRAR</button>
+        <button type="button" onClick={handleAddClick}>
+          <FaPlus />
+          CADASTRAR
+        </button>
       </div>
       <Table
         headers={headers}
