@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Table from '~/components/Table';
-
+import PageHeader from '~/components/PageHeader';
 import api from '~/services/api';
 
 const headers = [
@@ -16,7 +16,7 @@ const options = [
   { name: 'apagar', color: '#DE3B3B' },
 ];
 
-export default function Alunos() {
+export default function Alunos({ history }) {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
@@ -29,10 +29,7 @@ export default function Alunos() {
 
   return (
     <>
-      <div>
-        <h2>Gerenciando alunos</h2>
-        <button type="button">CADASTRAR</button>
-      </div>
+      <PageHeader pageName="Planos" history={history} />
       <Table
         headers={headers}
         data={plans}
