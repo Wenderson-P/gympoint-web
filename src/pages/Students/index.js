@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 
 import Table from '~/components/Table';
+import PageHeader from '~/components/PageHeader';
 
 import api from '~/services/api';
 
@@ -35,19 +36,10 @@ export default function Alunos({ history }) {
     }
     loadStudents();
   }, []);
-  function handleAddClick() {
-    history.push('students/form');
-  }
 
   return (
     <>
-      <div>
-        <h2>Gerenciando alunos</h2>
-        <button type="button" onClick={handleAddClick}>
-          <FaPlus />
-          CADASTRAR
-        </button>
-      </div>
+      <PageHeader pageName="Alunos" history={history} />
       <Table
         headers={headers}
         data={students}
