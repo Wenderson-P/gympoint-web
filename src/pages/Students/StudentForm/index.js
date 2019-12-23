@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { FaChevronLeft, FaCheck } from 'react-icons/fa';
-import { Row, MultipleItemRow } from './styles';
-import api from '~/services/api';
+import { useDispatch } from 'react-redux';
+import { Row, MultipleItemRow, FormBody } from './styles';
+
+import { storeRequest } from '~/store/modules/student/action';
 
 export default function StudentForm({ location, history, match }) {
   const [student, setStudent] = useState(['']);
   const [formType, setFormType] = useState('');
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     async function loadStudent() {
       try {
         const { data } = location.state;
-        setFormType('add');
+        setFormType('update');
         setStudent(data);
       } catch (error) {
-        setFormType('update');
+        setFormType('add');
       }
     }
 
@@ -73,10 +77,10 @@ export default function StudentForm({ location, history, match }) {
           </label>
           <label htmlFor="height">
             Altura
-            <Input type="email" name="height" id="height" />
+            <Input type="float" name="height" id="height" />
           </label>
         </MultipleItemRow>
-      </Form>
-    </>
+      </FormBody>
+    </Form>
   );
 }
