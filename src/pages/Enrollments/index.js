@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import pt from 'date-fns/locale/pt';
+import PageHeader from '~/components/PageHeader';
 import Table from '~/components/Table';
 
 import api from '~/services/api';
@@ -56,10 +57,8 @@ export default function Alunos() {
 
   return (
     <>
-      <div>
-        <h2>Gerenciando Matriculas </h2>
-        <button type="button">CADASTRAR</button>
-      </div>
+      <PageHeader pageName="Matrículas" />
+
       <Table
         headers={headers}
         data={enrollments}
