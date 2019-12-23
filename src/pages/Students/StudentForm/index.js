@@ -30,37 +30,35 @@ export default function StudentForm({ location, history, match }) {
     history.goBack();
   }
 
-  function handleFormSubmit() {
+  function handleFormSubmit({ name, email, weight, height, age }) {
     if (formType === 'add') {
-      // Make redux store request
+      dispatch(storeRequest(name, email, weight, height, age));
     } else {
       // Make redux update request
     }
   }
 
   return (
-    <>
+    <Form initialData={student} onSubmit={handleFormSubmit}>
       <div>
-        <h2>{formType === 'add' ? 'Edição de aluno' : 'Cadastro de aluno'}</h2>
-        <div>
+        <h2>{formType === 'add' ? 'Cadastro de aluno' : 'Edição de aluno'}</h2>
+        <aside>
           <button type="button" onClick={goBack}>
             <FaChevronLeft size={14} />
             Voltar
           </button>
-          <button type="button">
+          <button type="submit">
             <FaCheck size={14} />
             Salvar
           </button>
-        </div>
+        </aside>
       </div>
-      <Form initialData={student} onSubmit={handleFormSubmit}>
+      <FormBody>
         <Row>
           <label htmlFor="name">
             NOME COMPLETO
             <Input type="text" name="name" id="name" />
           </label>
-        </Row>
-        <Row>
           <label htmlFor="email">
             ENDEREÇO DE E-MAIL
             <Input type="email" name="email" id="email" />
