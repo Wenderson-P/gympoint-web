@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import PageHeader from '~/components/PageHeader';
 import Table from '~/components/Table';
 
 import api from '~/services/api';
@@ -27,9 +27,8 @@ export default function Alunos() {
 
   return (
     <>
-      <div>
-        <h2>Pedidos de auxílio</h2>
-      </div>
+      <PageHeader pageName="Pedidos de auxílio" />
+
       <Table
         headers={headers}
         data={helpOrders}
