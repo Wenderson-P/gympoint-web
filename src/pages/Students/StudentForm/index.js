@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import { FaChevronLeft, FaCheck } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { Row, MultipleItemRow, FormBody } from './styles';
-
+import FormHeader from '~/components/FormHeader';
 import { storeRequest } from '~/store/modules/student/action';
 
 export default function StudentForm({ location, history, match }) {
@@ -26,10 +25,6 @@ export default function StudentForm({ location, history, match }) {
     loadStudent();
   }, [location.state, match.params]);
 
-  function goBack() {
-    history.goBack();
-  }
-
   function handleFormSubmit({ name, email, weight, height, age }) {
     if (formType === 'add') {
       dispatch(storeRequest(name, email, weight, height, age));
@@ -40,19 +35,12 @@ export default function StudentForm({ location, history, match }) {
 
   return (
     <Form initialData={student} onSubmit={handleFormSubmit}>
-      <div>
-        <h2>{formType === 'add' ? 'Cadastro de aluno' : 'Edição de aluno'}</h2>
-        <aside>
-          <button type="button" onClick={goBack}>
-            <FaChevronLeft size={14} />
-            Voltar
-          </button>
-          <button type="submit">
-            <FaCheck size={14} />
-            Salvar
-          </button>
-        </aside>
-      </div>
+      <FormHeader
+        history={history}
+        formType={formType}
+        addTitle="Cadastro de aluno"
+        editTile="Edição de aluno'"
+      />
       <FormBody>
         <Row>
           <label htmlFor="name">
