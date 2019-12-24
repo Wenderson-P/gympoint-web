@@ -5,13 +5,20 @@ import { Row, MultipleItemRow } from './styles';
 
 export default function PlanForm({ history, location }) {
   const [plan, setPlan] = useState(['']);
+  const [formType, setFormType] = useState('');
 
   useEffect(() => {
     async function loadPlan() {
-      const { data } = location.state;
-      const totalPrice = data.price * data.duration;
-      data.totalPrice = totalPrice;
-      setPlan(data);
+      try {
+        const { data } = location.state;
+        const totalPrice = data.price * data.duration;
+        data.totalPrice = totalPrice;
+
+        setPlan(data);
+        setFormType('update');
+      } catch (error) {
+        setFormType('add');
+      }
     }
 
     loadPlan();
@@ -22,6 +29,7 @@ export default function PlanForm({ history, location }) {
       <Form initialData={plan}>
         <FormHeader
           history={history}
+          formType={formType}
           addTitle="Cadastro de aluno"
           editTile="Edição de aluno'"
         />
