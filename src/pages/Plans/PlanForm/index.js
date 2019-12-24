@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import { FaChevronLeft, FaCheck } from 'react-icons/fa';
+import FormHeader from 'components/FormHeader';
 import { Row, MultipleItemRow } from './styles';
 
-export default function PlanForm({ location }) {
+export default function PlanForm({ history, location }) {
   const [plan, setPlan] = useState(['']);
 
   useEffect(() => {
@@ -19,20 +19,12 @@ export default function PlanForm({ location }) {
 
   return (
     <>
-      <div>
-        <h2>Edição de aluno</h2>
-        <div>
-          <button type="button">
-            <FaChevronLeft size={14} />
-            Voltar
-          </button>
-          <button type="button">
-            <FaCheck size={14} />
-            Salvar
-          </button>
-        </div>
-      </div>
       <Form initialData={plan}>
+        <FormHeader
+          history={history}
+          addTitle="Cadastro de aluno"
+          editTile="Edição de aluno'"
+        />
         <Row>
           <label htmlFor="title">
             TÍTULO DO PLANO
