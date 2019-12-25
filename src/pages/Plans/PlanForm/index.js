@@ -31,28 +31,30 @@ export default function PlanForm({ history, location }) {
           history={history}
           formType={formType}
           addTitle="Cadastro de aluno"
-          editTile="Edição de aluno'"
+          editTitle="Edição de aluno"
         />
-        <Row>
-          <label htmlFor="title">
-            TÍTULO DO PLANO
-            <Input type="text" name="title" id="title" />
-          </label>
-        </Row>
-        <MultipleItemRow>
-          <label htmlFor="duration">
-            DURAÇÃO (em meses)
-            <Input type="number" name="duration" id="duration" />
-          </label>
-          <label htmlFor="price">
-            PREÇO MENSAL
-            <Input type="number" name="price" id="price" />
-          </label>
-          <label htmlFor="totalPrice">
-            PREÇO TOTAL
-            <Input type="email" name="totalPrice" id="totalPrice" disabled />
-          </label>
-        </MultipleItemRow>
+        <div>
+          <Row>
+            <label htmlFor="title">
+              TÍTULO DO PLANO
+              <Input type="text" name="title" id="title" />
+            </label>
+          </Row>
+          <MultipleItemRow>
+            <label htmlFor="duration">
+              DURAÇÃO (em meses)
+              <Input type="number" name="duration" id="duration" />
+            </label>
+            <label htmlFor="price">
+              PREÇO MENSAL
+              <Input type="number" name="price" id="price" />
+            </label>
+            <label htmlFor="totalPrice">
+              PREÇO TOTAL
+              <Input type="email" name="totalPrice" id="totalPrice" disabled />
+            </label>
+          </MultipleItemRow>
+        </div>
       </Form>
     </>
   );
