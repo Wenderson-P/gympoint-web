@@ -39,7 +39,7 @@ export default function StudentForm({ location, history, match }) {
         history={history}
         formType={formType}
         addTitle="Cadastro de aluno"
-        editTile="Edição de aluno'"
+        editTitle="Edição de aluno"
       />
       <FormBody>
         <Row>
