@@ -22,11 +22,18 @@ const dataDisplay = [
 ];
 
 const options = [
-  { name: 'editar', color: '#4D85EE' },
-  { name: 'apagar', color: '#DE3B3B' },
+  {
+    name: 'editar',
+    color: '#4D85EE',
+    path: '/enrollments/form',
+  },
+  {
+    name: 'apagar',
+    color: '#DE3B3B',
+    path: '/enrollments/delete',
+  },
 ];
-
-export default function Alunos() {
+export default function Enrollments({ history }) {
   const [enrollments, setEnrollments] = useState([]);
 
   useEffect(() => {
@@ -34,6 +41,7 @@ export default function Alunos() {
       const response = await api.get('enrollments');
       const data = response.data.map(item => {
         return {
+          id: item.id,
           studentName: item.student.name,
           planName: item.plan.title,
           startDate: format(
@@ -57,7 +65,7 @@ export default function Alunos() {
 
   return (
     <>
-      <PageHeader pageName="Matrículas" />
+      <PageHeader pageName="Matrículas" history={history} />
 
       <Table
         headers={headers}
