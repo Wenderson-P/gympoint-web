@@ -29,9 +29,30 @@ export default function EnrollmentForm({ history, location }) {
     loadEnrollment();
   }, [location.state]);
 
+  function handleFormSubmit({ name, email, weight, height, age }) {
+    if (formType === 'add') {
+      api.post('/enrollments', {
+        name,
+        email,
+        weight,
+        height,
+        age,
+      });
+    } else {
+      const { id } = enrollment;
+      api.post('/enrollments', {
+        id,
+        name,
+        email,
+        weight,
+        height,
+        age,
+      });
+    }
+  }
   return (
     <>
-      <Form initialData={enrollment}>
+      <Form initialData={enrollment} onSubmit={handleFormSubmit}>
         <FormHeader
           history={history}
           formType={formType}
