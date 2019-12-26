@@ -55,7 +55,7 @@ export const Content = styled.div`
     width: 200px;
     h4 {
       line-height: 16px;
-
+      text-align: right;
       color: #666666;
     }
 
@@ -63,8 +63,7 @@ export const Content = styled.div`
       width: 100%;
       font-size: 14px;
       line-height: 16px;
-      text-align: center;
-
+      text-align: right;
       color: #de3b3b;
       border: none;
       background: none;
