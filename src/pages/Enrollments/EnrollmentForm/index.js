@@ -1,12 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-
+import { startOfToday, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import FormHeader from '~/components/FormHeader';
 import { Row, MultipleItemRow } from './styles';
+import api from '~/services/api';
 
 export default function EnrollmentForm({ history, location }) {
   const [enrollment, setEnrollment] = useState(['']);
   const [formType, setFormType] = useState('');
+
+  useEffect(() => {
+    async function loadEnrollment() {
+      try {
+        const { data } = location.state;
+        setEnrollment(data);
+        setFormType('update');
+      } catch (error) {
+        const today = startOfToday();
+        const data = {
+          startDate: format(today, 'yyyy-MM-dd'),
+        };
+        setEnrollment(data);
+        setFormType('add');
+      }
+    }
+
+    loadEnrollment();
+  }, [location.state]);
 
   return (
     <>
@@ -30,7 +51,12 @@ export default function EnrollmentForm({ history, location }) {
               <Input type="text" name="planName" id="planName" />
             </label>
             <label htmlFor="startDate">DATA DE INÍCIO</label>
-            <Input type="date" name="startDate" id="startDate" />
+            <Input
+              type="date"
+              name="startDate"
+              id="startDate"
+              defaultValue={enrollment.startDate}
+            />
 
             <label htmlFor="finalDate">
               DATA DE TÉRMINO
