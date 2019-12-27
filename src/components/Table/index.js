@@ -9,7 +9,9 @@ export default function Table({ headers, data, dataDisplay, options }) {
       <thead>
         <tr>
           {headers.map(header => (
-            <Header textAlign={header.textAlign}>{header.name}</Header>
+            <Header key={header.name} textAlign={header.textAlign}>
+              {header.name}
+            </Header>
           ))}
           <Header />
         </tr>
@@ -19,13 +21,13 @@ export default function Table({ headers, data, dataDisplay, options }) {
           <>
             <tr>
               {dataDisplay.map((itemName, index) => (
-                <Data textAlign={headers[index].textAlign}>
+                <Data key={itemName} textAlign={headers[index].textAlign}>
                   {item[itemName]}
                 </Data>
               ))}
               <td>
                 {options.map(option => (
-                  <TableOption color={option.color}>
+                  <TableOption key={option.name} color={option.color}>
                     <Link
                       to={{
                         pathname: `${option.path}`,
