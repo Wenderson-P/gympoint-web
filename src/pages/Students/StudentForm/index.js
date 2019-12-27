@@ -3,9 +3,9 @@ import { Form, Input } from '@rocketseat/unform';
 import { useDispatch } from 'react-redux';
 import { Row, MultipleItemRow, FormBody } from './styles';
 import FormHeader from '~/components/FormHeader';
-import { storeRequest } from '~/store/modules/student/action';
+import { storeRequest, updateRequest } from '~/store/modules/student/action';
 
-export default function StudentForm({ location, history, match }) {
+export default function StudentForm({ location, history }) {
   const [student, setStudent] = useState(['']);
   const [formType, setFormType] = useState('');
 
@@ -23,13 +23,14 @@ export default function StudentForm({ location, history, match }) {
     }
 
     loadStudent();
-  }, [location.state, match.params]);
+  }, [location.state]);
 
   function handleFormSubmit({ name, email, weight, height, age }) {
     if (formType === 'add') {
       dispatch(storeRequest(name, email, weight, height, age));
     } else {
-      // Make redux update request
+      const { id } = student;
+      dispatch(updateRequest(name, email, weight, height, age, id));
     }
   }
 
