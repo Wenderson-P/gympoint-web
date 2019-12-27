@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import FormHeader from 'components/FormHeader';
+import FormHeader from '~/components/FormHeader';
 import { Row, MultipleItemRow } from './styles';
 
 export default function PlanForm({ history, location }) {
@@ -23,7 +23,6 @@ export default function PlanForm({ history, location }) {
 
     loadPlan();
   }, [location.state]);
-
   return (
     <>
       <Form initialData={plan}>
@@ -43,15 +42,37 @@ export default function PlanForm({ history, location }) {
           <MultipleItemRow>
             <label htmlFor="duration">
               DURAÇÃO (em meses)
-              <Input type="number" name="duration" id="duration" />
+              <Input
+                type="number"
+                name="duration"
+                id="duration"
+                onChange={e => {
+                  setPlan({
+                    ...plan,
+                    duration: e.target.value,
+                    totalPrice: e.target.value * plan.price,
+                  });
+                }}
+              />
             </label>
             <label htmlFor="price">
               PREÇO MENSAL
-              <Input type="number" name="price" id="price" />
+              <Input
+                type="number"
+                name="price"
+                id="price"
+                onChange={e => {
+                  setPlan({
+                    ...plan,
+                    price: e.target.value,
+                    totalPrice: plan.duration * e.target.value,
+                  });
+                }}
+              />
             </label>
             <label htmlFor="totalPrice">
               PREÇO TOTAL
-              <Input type="email" name="totalPrice" id="totalPrice" disabled />
+              <Input type="number" name="totalPrice" id="totalPrice" disabled />
             </label>
           </MultipleItemRow>
         </div>
