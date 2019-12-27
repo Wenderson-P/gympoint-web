@@ -14,6 +14,9 @@ export const TableContent = styled.table`
     }
     td {
       border-bottom: 1px solid #eeeeee;
+      &:last-child {
+        text-align: right;
+      }
     }
   }
 `;

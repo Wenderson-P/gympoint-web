@@ -17,10 +17,10 @@ export function storeFailure() {
   };
 }
 
-export function updateRequest(name, email, weight, height, age) {
+export function updateRequest(name, email, weight, height, age, id) {
   return {
     type: '@student/UPDATE_REQUEST',
-    payload: { name, email, weight, height, age },
+    payload: { name, email, weight, height, age, id },
   };
 }
 
@@ -30,7 +30,7 @@ export function updateSuccess(student) {
     payload: { student },
   };
 }
-export function updateFailure(student) {
+export function updateFailure() {
   return {
     type: '@student/UPDATE_FAILURE',
   };
