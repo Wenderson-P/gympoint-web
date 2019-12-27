@@ -7,7 +7,7 @@ export const Wrapper = styled.div`
 
 export const Content = styled.div`
   padding: 30px;
-  width: 90%;
+  width: 70%;
   margin: 0 auto;
 
   h2 {
