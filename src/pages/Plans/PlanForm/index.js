@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import FormHeader from '~/components/FormHeader';
 import { Row, MultipleItemRow } from './styles';
+import api from '~/services/api';
 
 export default function PlanForm({ history, location }) {
   const [plan, setPlan] = useState(['']);
@@ -23,9 +24,30 @@ export default function PlanForm({ history, location }) {
 
     loadPlan();
   }, [location.state]);
+
+  function handleFormSubmit({ price, title, duration }) {
+    if (formType === 'add') {
+      try {
+        api.post('/plans', {
+          price,
+          title,
+          duration,
+        });
+        history.push('/');
+      } catch (error) { }
+    } else {
+      const { id } = plan;
+      api.post('/plans', {
+        id,
+        price,
+        title,
+        duration,
+      });
+    }
+  }
   return (
     <>
-      <Form initialData={plan}>
+      <Form initialData={plan} onSubmit={handleFormSubmit}>
         <FormHeader
           history={history}
           formType={formType}
