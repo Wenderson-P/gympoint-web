@@ -13,29 +13,40 @@ const headers = [
 ];
 const dataDisplay = ['name', 'email', 'age'];
 
-const options = [
-  {
-    name: 'editar',
-    color: '#4D85EE',
-    path: '/students/form',
-  },
-  {
-    name: 'apagar',
-    color: '#DE3B3B',
-    path: '/students/delete',
-  },
-];
-
-export default function Alunos({ history }) {
+export default function Alunos({ history, location }) {
   const [students, setStudents] = useState([]);
+  const [pageAction, setPageAction] = useState([]);
 
   useEffect(() => {
     async function loadStudents() {
       const response = await api.get('students');
       setStudents(response.data);
+
+      try {
+        const { data } = location.state;
+        if (window.confirm('Deseja deletar este aluno?') === true) {
+          const { id } = data;
+          await api.delete(`students/${id}`);
+          history.replace();
+          setStudents(students.filter(student => student.id !== id));
+        }
+      } catch (error) { }
     }
     loadStudents();
-  }, []);
+  }, [location.state]); //eslint-disable-line
+
+  const options = [
+    {
+      name: 'editar',
+      color: '#4D85EE',
+      path: '/students/form',
+    },
+    {
+      name: 'apagar',
+      color: '#DE3B3B',
+      path: '/students',
+    },
+  ];
 
   return (
     <>
