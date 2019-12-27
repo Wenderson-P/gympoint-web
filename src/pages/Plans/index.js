@@ -13,19 +13,31 @@ const dataDisplay = ['title', 'duration', 'price'];
 
 const options = [
   { name: 'editar', color: '#4D85EE', path: '/plans/form' },
-  { name: 'apagar', color: '#DE3B3B' },
+  { name: 'apagar', color: '#DE3B3B', path: '/plans' },
 ];
 
-export default function Alunos({ history }) {
+export default function Alunos({ history, location }) {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
     async function loadPlans() {
       const response = await api.get('plans');
       setPlans(response.data);
+      try {
+        const { data } = location.state;
+        if (window.confirm('Deseja deletar este plano?') === true) {
+          const { id } = data;
+          await api.delete(`plans/${id}`);
+          history.replace();
+          setPlans(plans.filter(plan => plan.id !== id));
+        } else {
+          history.replace();
+        }
+      } catch (error) { }
     }
+
     loadPlans();
-  }, []);
+  }, [location.state]);//eslint-disable-line
 
   return (
     <>
