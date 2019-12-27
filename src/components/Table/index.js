@@ -17,7 +17,7 @@ export default function Table({ headers, data, dataDisplay, options }) {
       <tbody>
         {data.map(item => (
           <>
-            <tr style={{ borderBottom: '1px solid #000' }}>
+            <tr>
               {dataDisplay.map((itemName, index) => (
                 <Data textAlign={headers[index].textAlign}>
                   {item[itemName]}
