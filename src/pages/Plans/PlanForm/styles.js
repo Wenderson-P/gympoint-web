@@ -1,9 +1,22 @@
 import styled from 'styled-components';
 
-export const Row = styled.fieldset`
+export const FormContent = styled.div`
+  padding: 30px;
+`;
+
+export const Row = styled.div`
   label {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
-export const MultipleItemRow = styled.fieldset``;
+export const MultipleItemRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+`;

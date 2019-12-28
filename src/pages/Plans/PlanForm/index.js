@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { toast } from 'react-toastify';
 import FormHeader from '~/components/FormHeader';
-import { Row, MultipleItemRow } from './styles';
+import { FormContent, Row, MultipleItemRow } from './styles';
 import api from '~/services/api';
 
 export default function PlanForm({ history, location }) {
@@ -62,7 +62,7 @@ export default function PlanForm({ history, location }) {
           addTitle="Cadastro de aluno"
           editTitle="Edição de aluno"
         />
-        <div>
+        <FormContent>
           <Row>
             <label htmlFor="title">
               TÍTULO DO PLANO
@@ -105,7 +105,7 @@ export default function PlanForm({ history, location }) {
               <Input type="number" name="totalPrice" id="totalPrice" disabled />
             </label>
           </MultipleItemRow>
-        </div>
+        </FormContent>
       </Form>
     </>
   );
