@@ -25,24 +25,25 @@ export default function PlanForm({ history, location }) {
     loadPlan();
   }, [location.state]);
 
-  function handleFormSubmit({ price, title, duration }) {
+  async function handleFormSubmit({ price, title, duration }) {
     if (formType === 'add') {
       try {
-        api.post('/plans', {
+        await api.post('/plans', {
           price,
           title,
           duration,
         });
-        history.push('/');
+        history.push('/plans');
       } catch (error) { }
     } else {
       const { id } = plan;
-      api.post('/plans', {
+      await api.put('/plans', {
         id,
         price,
         title,
         duration,
       });
+      history.push('/plans');
     }
   }
   return (
