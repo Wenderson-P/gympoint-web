@@ -32,7 +32,31 @@ export default function EnrollmentForm({ history, location }) {
         setFormType('add');
       }
     }
+    async function loadStudents() {
+      const response = await api.get('/students');
+      const data = response.data.map(item => {
+        return {
+          value: item.name,
+          label: item.name,
+        };
+      });
+      setStudents(data);
+    }
 
+    async function loadPlans() {
+      const response = await api.get('/plans');
+      const data = response.data.map(item => {
+        console.log(item);
+        return {
+          value: item.title,
+          label: item.title,
+        };
+      });
+      setPlans(data);
+    }
+
+    loadStudents();
+    loadPlans();
     loadEnrollment();
   }, [location.state]);
 
