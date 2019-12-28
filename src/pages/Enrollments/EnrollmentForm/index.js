@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { startOfToday, format } from 'date-fns';
-import pt from 'date-fns/locale/pt';
+import Select from 'react-select';
 import FormHeader from '~/components/FormHeader';
-import { Row, MultipleItemRow } from './styles';
+import {
+  FormContent,
+  Row,
+  MultipleItemRow,
+  ReactSelectElement,
+} from './styles';
 import api from '~/services/api';
 
 export default function EnrollmentForm({ history, location }) {
   const [enrollment, setEnrollment] = useState(['']);
+  const [students, setStudents] = useState(['']);
+  const [plans, setPlans] = useState(['']);
   const [formType, setFormType] = useState('');
 
   useEffect(() => {
@@ -59,36 +66,35 @@ export default function EnrollmentForm({ history, location }) {
           addTitle="Nova Matrícula"
           editTitle="Edição de matrícula"
         />
-        <div>
+        <FormContent>
           <Row>
-            <label htmlFor="studentName">
-              ALUNO
-              <Input type="text" name="studentName" id="studentName" />
-            </label>
+            <label htmlFor="studentName">ALUNO</label>
+            <Select options={students} />
           </Row>
           <MultipleItemRow>
             <label htmlFor="planName">
               PLANO
-              <Input type="text" name="planName" id="planName" />
+              <ReactSelectElement options={plans} width="300px" />
             </label>
-            <label htmlFor="startDate">DATA DE INÍCIO</label>
-            <Input
-              type="date"
-              name="startDate"
-              id="startDate"
-              defaultValue={enrollment.startDate}
-            />
-
+            <label htmlFor="startDate">
+              DATA DE INÍCIO
+              <Input
+                type="date"
+                name="startDate"
+                id="startDate"
+                defaultValue={enrollment.startDate}
+              />
+            </label>
             <label htmlFor="finalDate">
               DATA DE TÉRMINO
-              <Input type="date" name="finalDate" id="finalDate" />
+              <Input type="date" name="finalDate" id="finalDate" disabled />
             </label>
             <label htmlFor="finalPrice">
               VALOR FINAL
               <Input type="email" name="finalPrice" id="finalPrice" disabled />
             </label>
           </MultipleItemRow>
-        </div>
+        </FormContent>
       </Form>
     </>
   );
