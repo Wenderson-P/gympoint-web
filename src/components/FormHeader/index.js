@@ -1,14 +1,13 @@
 import React from 'react';
 import { FaChevronLeft, FaCheck } from 'react-icons/fa';
-
-// import { Container } from './styles';
+import { Container } from './styles';
 
 export default function FormHeader({ formType, addTitle, editTitle, history }) {
   function goBack() {
     history.goBack();
   }
   return (
-    <div>
+    <Container>
       <h2>{formType === 'add' ? `${addTitle}` : `${editTitle}`}</h2>
       <aside>
         <button type="button" onClick={goBack}>
@@ -20,6 +19,6 @@ export default function FormHeader({ formType, addTitle, editTitle, history }) {
           Salvar
         </button>
       </aside>
-    </div>
+    </Container>
   );
 }
