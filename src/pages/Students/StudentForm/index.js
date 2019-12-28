@@ -48,6 +48,8 @@ export default function StudentForm({ location, history }) {
             NOME COMPLETO
             <Input type="text" name="name" id="name" />
           </label>
+        </Row>
+        <Row>
           <label htmlFor="email">
             ENDEREÇO DE E-MAIL
             <Input type="email" name="email" id="email" />
