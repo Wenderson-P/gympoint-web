@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
+import { toast } from 'react-toastify';
 import FormHeader from '~/components/FormHeader';
 import { Row, MultipleItemRow } from './styles';
 import api from '~/services/api';
@@ -34,16 +35,22 @@ export default function PlanForm({ history, location }) {
           duration,
         });
         history.push('/plans');
-      } catch (error) { }
+      } catch (error) {
+        toast.error('Erro ao cadastrar plano');
+      }
     } else {
-      const { id } = plan;
-      await api.put('/plans', {
-        id,
-        price,
-        title,
-        duration,
-      });
-      history.push('/plans');
+      try {
+        const { id } = plan;
+        await api.put('/plans', {
+          id,
+          price,
+          title,
+          duration,
+        });
+        history.push('/plans');
+      } catch (error) {
+        toast.error('Erro ao atualizar plano');
+      }
     }
   }
   return (
