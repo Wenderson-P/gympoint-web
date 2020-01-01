@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
-import { startOfToday, format } from 'date-fns';
+import { startOfToday, format, addMonths, parseISO } from 'date-fns';
+import pt from 'date-fns/esm/locale/pt';
 import Select from 'react-select';
 import FormHeader from '~/components/FormHeader';
 import {
@@ -16,71 +17,110 @@ export default function EnrollmentForm({ history, location }) {
   const [students, setStudents] = useState(['']);
   const [plans, setPlans] = useState(['']);
   const [formType, setFormType] = useState('');
+  const [selectedPlan, setSelectedPlan] = useState('');
 
   useEffect(() => {
-    async function loadEnrollment() {
-      try {
-        const { data } = location.state;
-        setEnrollment(data);
-        setFormType('update');
-      } catch (error) {
-        const today = startOfToday();
-        const data = {
-          startDate: format(today, 'yyyy-MM-dd'),
-        };
-        setEnrollment(data);
-        setFormType('add');
+    async function loadStudents(student = false) {
+      let response = [];
+      if (student) {
+        response = await api.get(`/students?q=${encodeURI(student)}`);
+      } else {
+        response = await api.get(`/students`);
       }
-    }
 
-    async function loadStudents() {
-      const response = await api.get('/students');
       const data = response.data.map(item => {
         return {
           value: item.name,
           label: item.name,
+          id: item.id,
         };
       });
       setStudents(data);
     }
 
-    async function loadPlans() {
-      const response = await api.get('/plans');
-      const data = response.data.map(item => {
-        return {
-          value: item.title,
-          label: item.title,
-        };
-      });
-      setPlans(data);
+    async function loadPlans(plan = false) {
+      const response = await api.get(`/plans`);
+
+      if (plan) {
+        const data = response.data.filter(item => {
+          return item.title === plan;
+        });
+        setPlans({
+          value: data[0].title,
+          label: data[0].title,
+          price: data[0].price,
+          duration: data[0].duration,
+          id: data[0].id,
+        });
+      } else {
+        const data = response.data.map(item => {
+          return {
+            value: item.title,
+            label: item.title,
+            price: item.price,
+            duration: item.duration,
+            id: item.id,
+          };
+        });
+        setPlans(data);
+      }
     }
 
-    loadStudents();
-    loadPlans();
-    loadEnrollment();
-  }, [location.state]);
+    async function loadEnrollment() {
+      try {
+        const { data } = location.state;
+        setEnrollment(data);
+        loadStudents(data.studentName);
+        loadPlans(data.planName);
 
-  function handleFormSubmit({ name, email, weight, height, age }) {
+        setFormType('update');
+      } catch (error) {
+        const today = startOfToday();
+        const data = {
+          start_date: format(today, 'yyyy-MM-dd'),
+        };
+        await setEnrollment(data);
+        setFormType('add');
+        loadStudents();
+        loadPlans();
+      }
+    }
+
+    loadEnrollment();
+  }, [location.state]); //eslint-disable-line
+
+  useEffect(() => {
+    if (enrollment.start_date && selectedPlan) {
+      const final_date = addMonths(
+        parseISO(enrollment.start_date),
+        selectedPlan.duration
+      );
+      const final_price = selectedPlan.price * selectedPlan.duration;
+      setEnrollment({
+        ...enrollment,
+        plan_id: selectedPlan.id,
+        final_date: format(final_date, "yyyy'-'MM'-'dd"),
+        final_price,
+      });
+    }
+  }, [selectedPlan, enrollment.start_date]); //eslint-disable-line
+
+  function handleFormSubmit() {
     if (formType === 'add') {
       api.post('/enrollments', {
-        name,
-        email,
-        weight,
-        height,
-        age,
+        student_id: enrollment.student_id,
+        plan_id: enrollment.plan_id,
+        start_date: enrollment.start_date,
       });
     } else {
-      const { id } = enrollment;
       api.post('/enrollments', {
-        id,
-        name,
-        email,
-        weight,
-        height,
-        age,
+        student_id: enrollment.student_id,
+        plan_id: enrollment.plan_id,
+        start_date: parseISO(enrollment.start_date),
       });
     }
   }
+
   return (
     <>
       <Form initialData={enrollment} onSubmit={handleFormSubmit}>
@@ -89,33 +129,63 @@ export default function EnrollmentForm({ history, location }) {
           formType={formType}
           addTitle="Nova Matrícula"
           editTitle="Edição de matrícula"
+          onChange={e =>
+            setEnrollment({ ...enrollment, student_id: e.target.value.id })
+          }
         />
         <FormContent>
           <Row>
-            <label htmlFor="studentName">ALUNO</label>
-            <Select options={students} />
+            <label>ALUNO</label>
+            <Select
+              options={formType === 'update' ? [] : students}
+              onChange={event => {
+                setEnrollment({
+                  ...enrollment,
+                  student_id: event.id,
+                  student_name: event.name,
+                });
+              }}
+              value={
+                formType === 'update' ? students[0] : enrollment.student_name
+              }
+            />
           </Row>
           <MultipleItemRow>
-            <label htmlFor="planName">
+            <label>
               PLANO
-              <ReactSelectElement options={plans} />
+              <ReactSelectElement
+                options={formType === 'update' ? [] : plans}
+                onChange={event => setSelectedPlan(event)}
+                value={formType === 'update' ? plans : selectedPlan}
+              />
             </label>
-            <label htmlFor="startDate">
+            <label htmlFor="start_date">
               DATA DE INÍCIO
               <Input
                 type="date"
-                name="startDate"
-                id="startDate"
-                defaultValue={enrollment.startDate}
+                name="start_date"
+                id="start_date"
+                defaultValue={enrollment.start_date}
+                onChange={event => {
+                  setEnrollment({
+                    ...enrollment,
+                    start_date: event.target.value,
+                  });
+                }}
               />
             </label>
-            <label htmlFor="finalDate">
+            <label htmlFor="final_date">
               DATA DE TÉRMINO
-              <Input type="date" name="finalDate" id="finalDate" disabled />
+              <Input type="date" name="final_date" id="final_date" disabled />
             </label>
-            <label htmlFor="finalPrice">
+            <label htmlFor="final_price">
               VALOR FINAL
-              <Input type="email" name="finalPrice" id="finalPrice" disabled />
+              <Input
+                type="email"
+                name="final_price"
+                id="final_price"
+                disabled
+              />
             </label>
           </MultipleItemRow>
         </FormContent>
