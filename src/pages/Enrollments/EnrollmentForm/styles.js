@@ -15,7 +15,7 @@ export const Row = styled.div`
 export const MultipleItemRow = styled.div`
   display: flex;
   justify-content: space-between;
-
+  flex-wrap: wrap;
   label {
     margin-top: 20px;
     display: flex;
