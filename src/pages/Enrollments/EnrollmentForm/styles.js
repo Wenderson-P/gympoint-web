@@ -24,9 +24,7 @@ export const MultipleItemRow = styled.div`
 `;
 
 export const ReactSelectElement = styled(ReactSelect)`
-  .css-yk16xz-control {
-    width: 200px;
-    margin-top: 9px;
-    padding: 2px;
-  }
+  width: 200px;
+  margin-top: 9px;
+  padding: 2px;
 `;

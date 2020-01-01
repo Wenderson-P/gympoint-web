@@ -32,6 +32,7 @@ export default function EnrollmentForm({ history, location }) {
         setFormType('add');
       }
     }
+
     async function loadStudents() {
       const response = await api.get('/students');
       const data = response.data.map(item => {
@@ -46,7 +47,6 @@ export default function EnrollmentForm({ history, location }) {
     async function loadPlans() {
       const response = await api.get('/plans');
       const data = response.data.map(item => {
-        console.log(item);
         return {
           value: item.title,
           label: item.title,
@@ -98,7 +98,7 @@ export default function EnrollmentForm({ history, location }) {
           <MultipleItemRow>
             <label htmlFor="planName">
               PLANO
-              <ReactSelectElement options={plans} width="300px" />
+              <ReactSelectElement options={plans} />
             </label>
             <label htmlFor="startDate">
               DATA DE INÍCIO
