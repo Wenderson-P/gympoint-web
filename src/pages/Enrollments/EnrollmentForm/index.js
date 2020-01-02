@@ -77,7 +77,7 @@ export default function EnrollmentForm({ history, location }) {
       } catch (error) {
         const today = startOfToday();
         const data = {
-          start_date: format(today, 'yyyy-MM-dd'),
+          start_date: today,
         };
         await setEnrollment(data);
         setFormType('add');
@@ -92,14 +92,14 @@ export default function EnrollmentForm({ history, location }) {
   useEffect(() => {
     if (enrollment.start_date && selectedPlan) {
       const final_date = addMonths(
-        parseISO(enrollment.start_date),
+        enrollment.start_date,
         selectedPlan.duration
       );
       const final_price = selectedPlan.price * selectedPlan.duration;
       setEnrollment({
         ...enrollment,
         plan_id: selectedPlan.id,
-        final_date: format(final_date, "yyyy'-'MM'-'dd"),
+        final_date,
         final_price,
       });
     }
