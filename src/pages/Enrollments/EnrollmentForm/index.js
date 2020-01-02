@@ -142,7 +142,7 @@ export default function EnrollmentForm({ history, location }) {
                 setEnrollment({
                   ...enrollment,
                   student_id: event.id,
-                  student_name: event.name,
+                  student_name: event.label,
                 });
               }}
               value={
