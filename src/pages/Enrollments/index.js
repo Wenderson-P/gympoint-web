@@ -44,6 +44,7 @@ export default function Enrollments({ history }) {
           id: item.id,
           studentName: item.student.name,
           planName: item.plan.title,
+          start_date: parseISO(item.start_date),
           startDate: format(
             parseISO(item.start_date),
             "d 'de' MMMM 'de'  yyyy",
