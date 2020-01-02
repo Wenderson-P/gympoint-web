@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input } from '@rocketseat/unform';
 import { startOfToday, format, addMonths, parseISO } from 'date-fns';
-import pt from 'date-fns/esm/locale/pt';
 import Select from 'react-select';
+import DatePicker from '~/components/DatePicker';
 import FormHeader from '~/components/FormHeader';
 import {
   FormContent,
@@ -161,27 +161,25 @@ export default function EnrollmentForm({ history, location }) {
             </label>
             <label htmlFor="start_date">
               DATA DE INÍCIO
-              <Input
-                type="date"
-                name="start_date"
-                id="start_date"
-                defaultValue={enrollment.start_date}
-                onChange={event => {
+              <DatePicker
+                selected={enrollment.start_date}
+                locale="pt-BR"
+                onChange={date => {
                   setEnrollment({
                     ...enrollment,
-                    start_date: event.target.value,
+                    start_date: date,
                   });
                 }}
               />
             </label>
             <label htmlFor="final_date">
               DATA DE TÉRMINO
-              <Input type="date" name="final_date" id="final_date" disabled />
+              <DatePicker selected={enrollment.final_date} disabled />
             </label>
             <label htmlFor="final_price">
               VALOR FINAL
               <Input
-                type="email"
+                type="number"
                 name="final_price"
                 id="final_price"
                 disabled
