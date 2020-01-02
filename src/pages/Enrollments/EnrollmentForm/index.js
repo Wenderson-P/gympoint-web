@@ -27,12 +27,11 @@ export default function EnrollmentForm({ history, location }) {
       } else {
         response = await api.get(`/students`);
       }
-
       const data = response.data.map(item => {
         return {
           value: item.name,
           label: item.name,
-          id: item.id,
+          student_id: item.id,
         };
       });
       setStudents(data);
@@ -40,30 +39,20 @@ export default function EnrollmentForm({ history, location }) {
 
     async function loadPlans(plan = false) {
       const response = await api.get(`/plans`);
-
+      const data = response.data.map(item => {
+        return {
+          value: item.title,
+          label: item.title,
+          price: item.price,
+          duration: item.duration,
+          plan_id: item.id,
+        };
+      });
       if (plan) {
-        const data = response.data.filter(item => {
-          return item.title === plan;
-        });
-        setPlans({
-          value: data[0].title,
-          label: data[0].title,
-          price: data[0].price,
-          duration: data[0].duration,
-          id: data[0].id,
-        });
-      } else {
-        const data = response.data.map(item => {
-          return {
-            value: item.title,
-            label: item.title,
-            price: item.price,
-            duration: item.duration,
-            id: item.id,
-          };
-        });
-        setPlans(data);
+        const studentPlan = data.filter(item => item.value === plan);
+        setSelectedPlan(studentPlan[0]);
       }
+      setPlans(data);
     }
 
     async function loadEnrollment() {
@@ -103,20 +92,21 @@ export default function EnrollmentForm({ history, location }) {
         final_price,
       });
     }
-  }, [selectedPlan, enrollment.start_date]); //eslint-disable-line
+  }, [selectedPlan, enrollment.start_date, students]); //eslint-disable-line
 
   function handleFormSubmit() {
+    const { student_id, plan_id, start_date } = enrollment;
     if (formType === 'add') {
       api.post('/enrollments', {
-        student_id: enrollment.student_id,
-        plan_id: enrollment.plan_id,
-        start_date: enrollment.start_date,
+        student_id,
+        plan_id,
+        start_date,
       });
     } else {
       api.post('/enrollments', {
-        student_id: enrollment.student_id,
-        plan_id: enrollment.plan_id,
-        start_date: parseISO(enrollment.start_date),
+        student_id,
+        plan_id,
+        start_date: parseISO(start_date),
       });
     }
   }
@@ -129,9 +119,6 @@ export default function EnrollmentForm({ history, location }) {
           formType={formType}
           addTitle="Nova Matrícula"
           editTitle="Edição de matrícula"
-          onChange={e =>
-            setEnrollment({ ...enrollment, student_id: e.target.value.id })
-          }
         />
         <FormContent>
           <Row>
@@ -154,9 +141,9 @@ export default function EnrollmentForm({ history, location }) {
             <label>
               PLANO
               <ReactSelectElement
-                options={formType === 'update' ? [] : plans}
+                options={plans}
                 onChange={event => setSelectedPlan(event)}
-                value={formType === 'update' ? plans : selectedPlan}
+                value={selectedPlan}
               />
             </label>
             <label htmlFor="start_date">
