@@ -17,6 +17,7 @@ export default function EnrollmentForm({ history, location }) {
   const [students, setStudents] = useState(['']);
   const [plans, setPlans] = useState(['']);
   const [formType, setFormType] = useState('');
+  const [selectedStudent, setSelectedStudent] = useState('');
   const [selectedPlan, setSelectedPlan] = useState('');
 
   useEffect(() => {
@@ -35,6 +36,9 @@ export default function EnrollmentForm({ history, location }) {
         };
       });
       setStudents(data);
+      if (student) {
+        setSelectedStudent(data[0]);
+      }
     }
 
     async function loadPlans(plan = false) {
@@ -126,15 +130,9 @@ export default function EnrollmentForm({ history, location }) {
             <Select
               options={formType === 'update' ? [] : students}
               onChange={event => {
-                setEnrollment({
-                  ...enrollment,
-                  student_id: event.id,
-                  student_name: event.label,
-                });
+                setSelectedStudent(event);
               }}
-              value={
-                formType === 'update' ? students[0] : enrollment.student_name
-              }
+              value={selectedStudent}
             />
           </Row>
           <MultipleItemRow>
