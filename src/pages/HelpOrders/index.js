@@ -5,8 +5,9 @@ import { Table, AnswerButton, ModalContent, ModalCloseButton } from './styles';
 
 import api from '~/services/api';
 
-export default function HelpOrders() {
+export default function HelpOrders({ history }) {
   const [helpOrders, setHelpOrders] = useState([]);
+  const [helpOrderAnswer, setHelpOrderAnswer] = useState('');
 
   useEffect(() => {
     async function loadHelpOrders() {
@@ -23,6 +24,12 @@ export default function HelpOrders() {
     loadHelpOrders();
   }, []);
 
+  async function sendAnswer(data) {
+    const { id } = data;
+    await api.post(`/help-orders/${id}/answer`, { answer: helpOrderAnswer });
+    setHelpOrderAnswer('');
+    history.push('/help-orders');
+  }
   return (
     <>
       <PageHeader pageName="Pedidos de auxílio" hideButton />
@@ -44,12 +51,17 @@ export default function HelpOrders() {
                       <span>PERGUNTA DO ALUNO</span>
                       <p>{data.question}</p>
                       <span>RESPOSTA</span>
-                      <textarea id="answer" name="answer" />
+                      <textarea
+                        id="answer"
+                        name="answer"
+                        onChange={e => setHelpOrderAnswer(e.target.value)}
+                      />
 
                       <ModalCloseButton
                         type="button"
                         onClick={() => {
                           close();
+                          sendAnswer(data);
                         }}
                       >
                         Responder aluno
