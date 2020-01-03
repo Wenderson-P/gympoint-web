@@ -91,15 +91,16 @@ export default function EnrollmentForm({ history, location }) {
       const final_price = selectedPlan.price * selectedPlan.duration;
       setEnrollment({
         ...enrollment,
-        plan_id: selectedPlan.id,
         final_date,
         final_price,
       });
     }
-  }, [selectedPlan, enrollment.start_date, students]); //eslint-disable-line
+  }, [selectedPlan, enrollment.start_date]); //eslint-disable-line
 
   function handleFormSubmit() {
-    const { student_id, plan_id, start_date } = enrollment;
+    const { id, start_date } = enrollment;
+    const { plan_id } = selectedPlan;
+    const { student_id } = selectedStudent;
     if (formType === 'add') {
       api.post('/enrollments', {
         student_id,
