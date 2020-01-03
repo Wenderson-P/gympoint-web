@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Popup from 'reactjs-popup';
+import { toast } from 'react-toastify';
 import PageHeader from '~/components/PageHeader';
 import { Table, AnswerButton, ModalContent, ModalCloseButton } from './styles';
 
@@ -25,10 +26,14 @@ export default function HelpOrders({ history }) {
   }, []);
 
   async function sendAnswer(data) {
-    const { id } = data;
-    await api.post(`/help-orders/${id}/answer`, { answer: helpOrderAnswer });
-    setHelpOrderAnswer('');
-    history.push('/help-orders');
+    try {
+      const { id } = data;
+      await api.post(`/help-orders/${id}/answer`, { answer: helpOrderAnswer });
+      setHelpOrderAnswer('');
+      history.push('/help-orders');
+    } catch (error) {
+      toast.error('Não foi possivel enviar a resposta ');
+    }
   }
   return (
     <>
