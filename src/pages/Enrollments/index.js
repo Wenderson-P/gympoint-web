@@ -30,16 +30,27 @@ const options = [
   {
     name: 'apagar',
     color: '#DE3B3B',
-    path: '/enrollments/delete',
+    path: '/enrollments',
   },
 ];
-export default function Enrollments({ history }) {
+export default function Enrollments({ history, location }) {
   const [enrollments, setEnrollments] = useState([]);
 
   useEffect(() => {
     async function loadEnrollments() {
       const response = await api.get('enrollments');
-      const data = response.data.map(item => {
+      try {
+        const { data } = location.state;
+        if (window.confirm('Deseja deletar esta matricula?') === true) {
+          const { id } = data;
+          await api.delete(`enrollments/${id}`);
+          history.replace();
+          setEnrollments(enrollments.filter(plan => plan.id !== id));
+        } else {
+          history.replace();
+        }
+      } catch (error) { }
+      const items = response.data.map(item => {
         return {
           id: item.id,
           studentName: item.student.name,
@@ -58,11 +69,11 @@ export default function Enrollments({ history }) {
           active: item.active ? 'Sim' : 'Não',
         };
       });
-      setEnrollments(data);
+      setEnrollments(items);
     }
 
     loadEnrollments();
-  }, []);
+  }, [location.state]); //eslint-disable-line
 
   return (
     <>
