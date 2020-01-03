@@ -72,7 +72,7 @@ export default function EnrollmentForm({ history, location }) {
         const data = {
           start_date: today,
         };
-        await setEnrollment(data);
+        setEnrollment(data);
         setFormType('add');
         loadStudents();
         loadPlans();
@@ -97,22 +97,24 @@ export default function EnrollmentForm({ history, location }) {
     }
   }, [selectedPlan, enrollment.start_date]); //eslint-disable-line
 
-  function handleFormSubmit() {
+  async function handleFormSubmit() {
     const { id, start_date } = enrollment;
     const { plan_id } = selectedPlan;
     const { student_id } = selectedStudent;
     if (formType === 'add') {
-      api.post('/enrollments', {
+      await api.post('/enrollments', {
         student_id,
         plan_id,
         start_date,
       });
+      history.push('/enrollments');
     } else {
-      api.post('/enrollments', {
-        student_id,
+      await api.put('/enrollments', {
+        id,
         plan_id,
-        start_date: parseISO(start_date),
+        start_date,
       });
+      history.push('/enrollments');
     }
   }
 
