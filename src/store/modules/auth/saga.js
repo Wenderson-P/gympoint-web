@@ -17,7 +17,7 @@ export function* signIn({ payload }) {
     api.defaults.headers.Authorization = `Bearer ${token}`;
     yield put(signInSuccess(token, user));
 
-    history.push('/alunos');
+    history.push('/');
   } catch (error) {
     yield put(signFailure());
     toast.warn('Usuário e/ou senha inválidos');
