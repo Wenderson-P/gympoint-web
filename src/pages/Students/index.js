@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 
 import Table from '~/components/Table';
-import PageHeader from '~/components/PageHeader';
+import { PageHeader, SearchBar } from './styles';
 
 import api from '~/services/api';
 
@@ -15,7 +15,8 @@ const dataDisplay = ['name', 'email', 'age'];
 
 export default function Alunos({ history, location }) {
   const [students, setStudents] = useState([]);
-  const [pageAction, setPageAction] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [searchBarActive, setSearchBarActive] = useState(false);
 
   useEffect(() => {
     async function loadStudents() {
@@ -48,12 +49,55 @@ export default function Alunos({ history, location }) {
     },
   ];
 
+  function handleAddClick() {
+    history.push(`students/form`);
+  }
+
+  async function handleSearchBarChange(inputValue) {
+    if (inputValue !== '') {
+      const filtered = await [
+        students.find(student =>
+          student.name
+            .normalize('NFD')
+            .toLowerCase()
+            .replace(/[\u0300-\u036f]/g, '')
+            .includes(
+              inputValue
+                .normalize('NFD')
+                .toLowerCase()
+                .replace(/[\u0300-\u036f]/g, '')
+            )
+        ),
+      ];
+
+      if (filtered[0] === undefined) {
+        setFilteredStudents(['']);
+      } else {
+        setFilteredStudents(filtered);
+      }
+      setSearchBarActive(true);
+    } else {
+      setSearchBarActive(false);
+    }
+  }
   return (
     <>
-      <PageHeader pageName="Alunos" history={history} />
+      <PageHeader>
+        <h2>Alunos</h2>
+        <aside>
+          <button type="button" onClick={handleAddClick}>
+            <FaPlus /> CADASTRAR
+          </button>
+          <SearchBar
+            type="text"
+            onChange={e => handleSearchBarChange(e.target.value)}
+            placeholder="Buscar aluno"
+          />
+        </aside>
+      </PageHeader>
       <Table
         headers={headers}
-        data={students}
+        data={searchBarActive ? filteredStudents : students}
         dataDisplay={dataDisplay}
         options={options}
       />
