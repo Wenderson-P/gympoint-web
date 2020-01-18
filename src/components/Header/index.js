@@ -11,7 +11,7 @@ import logo from '~/assets/logo.svg';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const profile = useSelector(state => state.user.profile);
+  const profile = useSelector(state => state.user.user);
 
   function handleSignOut() {
     dispatch(signOut());
