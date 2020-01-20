@@ -16,7 +16,7 @@
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
 * [Backend](#backend)
-* [Mobile]#(mobile)
+* [Mobile](#mobile)
 
 
 ## About the project
