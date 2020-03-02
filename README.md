@@ -7,11 +7,11 @@
 
 
 <!-- TABLE OF CONTENTS -->
-## Table of Contents
+## 📜 Table of Contents
 
-* [About the Project](#about-the-project)
-  * [Made With](#made-with)
-  * [Demo](#demo)
+* [About the Project](#-about-the-project)
+  * [Made With](#-made-with)
+  * [Demo](#-demo)
 * [Getting Started](#getting-started)
   * [Prerequisites](#prerequisites)
   * [Installation](#installation)
@@ -19,7 +19,7 @@
 * [Mobile](#mobile)
 
 
-## About the project
+## 🔎 About the project
 <img src="https://user-images.githubusercontent.com/52503774/72694188-df4c6f80-3b12-11ea-8b3c-6047493f501b.png"/>
 
 This project i made the frontend/mobile/backend, to exercise all my knowledge in these areas.
@@ -29,12 +29,12 @@ In the web version you can manage a gym. You have a entire CRUD(create,read,upda
 You can also answer 'help orders' that students makes in their mobile app.
 
 
-## Demo
+## 📺 Demo
 ![gympoint](https://user-images.githubusercontent.com/52503774/72628794-cfc00180-392d-11ea-8086-9fd332ef3bfc.gif)
 
 
 
-## Made with 
+## 🧰 Made with 
 
 - [React](http://facebook.github.io/react-native/) 
 - [Axios](https://github.com/axios/axios) 
