@@ -5,8 +5,6 @@
     <h2 align="center"  >Gympoint</h2>
 </p>
 
-
-<!-- TABLE OF CONTENTS -->
 ## 📜 Table of Contents
 
 * [About the Project](#-about-the-project)
@@ -18,21 +16,17 @@
 * [Backend](#backend)
 * [Mobile](#mobile)
 
-
 ## 🔎 About the project
 <img src="https://user-images.githubusercontent.com/52503774/72694188-df4c6f80-3b12-11ea-8b3c-6047493f501b.png"/>
 
-This project i made the frontend/mobile/backend, to exercise all my knowledge in these areas.
+In this project, I made the frontend/mobile/backend to exercise all my knowledge in these areas.
 
-In the web version you can manage a gym. You have a entire CRUD(create,read,update and delete) of students, plans and enrollment.
+In web version you can manage a gym. You have a entire CRUD (create, read, update and delete) of students, plans and enrollment.
 
 You can also answer 'help orders' that students makes in their mobile app.
 
-
 ## 📺 Demo
 ![gympoint](https://user-images.githubusercontent.com/52503774/72628794-cfc00180-392d-11ea-8086-9fd332ef3bfc.gif)
-
-
 
 ## 🧰 Made with 
 
@@ -62,10 +56,6 @@ You can also answer 'help orders' that students makes in their mobile app.
 - [Polished](https://github.com/styled-components/polished)
 - [Immer] (https://github.com/immerjs/immer)
 
-
-
-
-
 ## Prerequisites
 $ node --version
 v0.10.24
@@ -79,16 +69,14 @@ $ npm --version
 ```
 git clone https://github.com/your_username_/Project-Name.git
 ```
-2. Install npm/yarn packages ( you can use both)
+2. Install npm/yarn packages (you can use both)
 ```yarn install```
 
 3. Run the app
 ```yarn start```
 
-
 ## Backend
 * [Backend version](https://github.com/Wenderson-P/gympoint-backend)
-
 
 ## Mobile
 
